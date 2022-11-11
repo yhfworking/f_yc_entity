@@ -65,20 +65,20 @@ class FYcEntitysRemoteConfigShare {
 }
 
 class FYcEntitysRemoteConfigAd {
-  final int? interstitialAdIntervalMin;
-  final int? rewardAdIntervalMin;
+  final int? interstitialAdIntervalSec;
+  final int? rewardAdIntervalSec;
 
   const FYcEntitysRemoteConfigAd(
-      {this.interstitialAdIntervalMin, this.rewardAdIntervalMin});
+      {this.interstitialAdIntervalSec, this.rewardAdIntervalSec});
 
   factory FYcEntitysRemoteConfigAd.fromJson(Map<String, dynamic> json) =>
       FYcEntitysRemoteConfigAd(
-          interstitialAdIntervalMin: json["interstitialAdIntervalMin"] ?? 0,
-          rewardAdIntervalMin: json["rewardAdIntervalMin"] ?? 0);
+          interstitialAdIntervalSec: json["interstitialAdIntervalSec"] ?? 0,
+          rewardAdIntervalSec: json["rewardAdIntervalSec"] ?? 0);
 
   Map<String, dynamic> toJson() => {
-        "interstitialAdIntervalMin": interstitialAdIntervalMin,
-        "rewardAdIntervalMin": rewardAdIntervalMin
+        "interstitialAdIntervalSec": interstitialAdIntervalSec,
+        "rewardAdIntervalSec": rewardAdIntervalSec
       };
 }
 
@@ -92,5 +92,5 @@ class FYcEntitysRemoteConfigApp {
       FYcEntitysRemoteConfigApp(
           image: json["image"] ?? 0, url: json["url"] ?? 0);
 
-  Map<String, dynamic> toJson() => {"image": image, "rewardAdIntervalMin": url};
+  Map<String, dynamic> toJson() => {"image": image, "url": url};
 }
