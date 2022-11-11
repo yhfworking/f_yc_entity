@@ -2,7 +2,7 @@ class FYcEntitysRemoteConfig {
   final FYcEntitysRemoteConfigAd? ad;
   final FYcEntitysRemoteConfigShare? share;
   final FYcEntitysRemoteConfigVersion? version;
-  final List<FYcEntitysRemoteConfigApp>? apps;
+  final List? apps;
 
   const FYcEntitysRemoteConfig({this.ad, this.share, this.version, this.apps});
 
@@ -12,9 +12,7 @@ class FYcEntitysRemoteConfig {
           share: FYcEntitysRemoteConfigShare.fromJson(json["share"] ?? {}),
           version:
               FYcEntitysRemoteConfigVersion.fromJson(json["version"] ?? {}),
-          apps: (json['apps'] as List)
-              .map((i) => FYcEntitysRemoteConfigApp.fromJson(i))
-              .toList());
+          apps: json['apps']);
 
   Map<String, dynamic> toJson() => {
         "ad": ad!.toJson(),
@@ -80,17 +78,4 @@ class FYcEntitysRemoteConfigAd {
         "interstitialAdIntervalSec": interstitialAdIntervalSec,
         "rewardAdIntervalSec": rewardAdIntervalSec
       };
-}
-
-class FYcEntitysRemoteConfigApp {
-  final String? image;
-  final String? url;
-
-  const FYcEntitysRemoteConfigApp({this.image, this.url});
-
-  factory FYcEntitysRemoteConfigApp.fromJson(Map<String, dynamic> json) =>
-      FYcEntitysRemoteConfigApp(
-          image: json["image"] ?? 0, url: json["url"] ?? 0);
-
-  Map<String, dynamic> toJson() => {"image": image, "url": url};
 }
