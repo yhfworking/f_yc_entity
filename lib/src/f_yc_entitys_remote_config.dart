@@ -29,6 +29,8 @@ class FYcEntitysRemoteConfig {
     });
     if (apps != null) {
       data['apps'] = apps!.map((v) => v.toJson()).toList();
+    } else {
+      data['apps'] = [];
     }
     return data;
   }
