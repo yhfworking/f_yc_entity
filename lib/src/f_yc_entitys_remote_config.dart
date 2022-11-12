@@ -2,24 +2,36 @@ class FYcEntitysRemoteConfig {
   final FYcEntitysRemoteConfigAd? ad;
   final FYcEntitysRemoteConfigShare? share;
   final FYcEntitysRemoteConfigVersion? version;
-  final List? apps;
+  final List<FYcEntitysRemoteConfigApp>? apps;
 
   const FYcEntitysRemoteConfig({this.ad, this.share, this.version, this.apps});
 
-  factory FYcEntitysRemoteConfig.fromJson(Map<String, dynamic> json) =>
-      FYcEntitysRemoteConfig(
-          ad: FYcEntitysRemoteConfigAd.fromJson(json["ad"] ?? {}),
-          share: FYcEntitysRemoteConfigShare.fromJson(json["share"] ?? {}),
-          version:
-              FYcEntitysRemoteConfigVersion.fromJson(json["version"] ?? {}),
-          apps: json['apps']);
+  factory FYcEntitysRemoteConfig.fromJson(Map<String, dynamic> json) {
+    List<FYcEntitysRemoteConfigApp>? apps = <FYcEntitysRemoteConfigApp>[];
+    if (json['apps'] != null) {
+      json['apps'].forEach((v) {
+        apps.add(FYcEntitysRemoteConfigApp.fromJson(v));
+      });
+    }
+    FYcEntitysRemoteConfig entitysRemoteConfig = FYcEntitysRemoteConfig(
+        ad: FYcEntitysRemoteConfigAd.fromJson(json["ad"] ?? {}),
+        share: FYcEntitysRemoteConfigShare.fromJson(json["share"] ?? {}),
+        version: FYcEntitysRemoteConfigVersion.fromJson(json["version"] ?? {}),
+        apps: apps);
+    return entitysRemoteConfig;
+  }
 
-  Map<String, dynamic> toJson() => {
-        "ad": ad!.toJson(),
-        "share": share!.toJson(),
-        "version": version!.toJson(),
-        "apps": apps!.toList()
-      };
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> data = Map.from({
+      "ad": ad!.toJson(),
+      "share": share!.toJson(),
+      "version": version!.toJson()
+    });
+    if (apps != null) {
+      data['apps'] = apps!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
 }
 
 class FYcEntitysRemoteConfigVersion {
@@ -78,4 +90,17 @@ class FYcEntitysRemoteConfigAd {
         "interstitialAdIntervalSec": interstitialAdIntervalSec,
         "rewardAdIntervalSec": rewardAdIntervalSec
       };
+}
+
+class FYcEntitysRemoteConfigApp {
+  final String? image;
+  final String? url;
+
+  const FYcEntitysRemoteConfigApp({this.image, this.url});
+
+  factory FYcEntitysRemoteConfigApp.fromJson(Map<String, dynamic> json) =>
+      FYcEntitysRemoteConfigApp(
+          image: json["image"] ?? '', url: json["url"] ?? 0);
+
+  Map<String, dynamic> toJson() => {"image": image, "url": url};
 }
